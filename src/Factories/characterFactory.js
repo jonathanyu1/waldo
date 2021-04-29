@@ -1,6 +1,6 @@
 const characterFactory = (charName) => {
     const name = charName;
-    const foundStatus = false;
+    let foundStatus = false;
     const setFoundStatus = (status) => {
         foundStatus = status;
     }
