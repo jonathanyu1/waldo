@@ -40,7 +40,10 @@ const App = () => {
       <div id="appContainer">
         <Header gameChars={gameChars}/>
         {gameStart ? null : <StartPage beginGame={beginGame}/>}
-        {gameStart ? <GameController /> : null}
+        {gameStart ? <GameController 
+                        gameChars={gameChars}
+                    /> 
+        : null}
       </div>
     );
 }
