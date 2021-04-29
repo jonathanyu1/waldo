@@ -9,7 +9,7 @@ const HeaderChar = (props) => {
     return (
         <div className='headerCharContainer'>
             <div className='headerCharImg'>
-                {props.name && <img src={require(`../Images/${props.name}Header.png`).default}/>}
+                {props.name && <img src={require(`../Images/Header/${props.name}Header.png`).default}/>}
             </div>
             <div className='headerCharName'>
                 {props.name}

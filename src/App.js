@@ -3,6 +3,7 @@ import './App.css';
 import Header from './Components/Header';
 import StartPage from './Components/StartPage';
 import characterFactory from './Factories/characterFactory';
+import GameController from './Components/GameController';
 
 const App = () => {
     const [gameStart, setGameStart] = useState(false);
@@ -39,6 +40,7 @@ const App = () => {
       <div id="appContainer">
         <Header gameChars={gameChars}/>
         {gameStart ? null : <StartPage beginGame={beginGame}/>}
+        {gameStart ? <GameController /> : null}
       </div>
     );
 }

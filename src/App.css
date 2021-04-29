@@ -20,6 +20,7 @@ html, body, #root, #appContainer{
     height: 10vh;
     background-color: blue;
     width: 100%;
+    z-index: 5;
 }
 
 /* Header Char */ 
@@ -59,4 +60,16 @@ html, body, #root, #appContainer{
     border: none;
     font-size: 25px;
     padding: 15px;
+}
+
+/* Game */
+
+#gameContainer{
+    padding-top: 10vh;
+}
+
+.gameImage{
+    width: 100%;
+    height: auto;
+    
 }
