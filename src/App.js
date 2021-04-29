@@ -9,6 +9,10 @@ const App = () => {
     const [gameCharNames, setGameCharNames] = useState(['waldo','odlaw','wizard']);
     const [gameChars, setGameChars] = useState([]);
 
+    const beginGame = () => {
+      setGameStart(true);
+    }
+
     const generateGameChars = () =>{
         let tempGameChars = [];
         gameCharNames.forEach((charName)=>{
@@ -16,6 +20,10 @@ const App = () => {
         });
         setGameChars((tempGameChars));
     }
+
+    useEffect(()=>{
+      console.log('gameStart: ',gameStart);
+    },[gameStart])
 
     useEffect(()=>{
       generateGameChars();
@@ -30,7 +38,7 @@ const App = () => {
     return (
       <div id="appContainer">
         <Header gameChars={gameChars}/>
-        {gameStart ? null : <StartPage />}
+        {gameStart ? null : <StartPage beginGame={beginGame}/>}
       </div>
     );
 }

@@ -38,3 +38,25 @@ html, body, #root, #appContainer{
     width: 9vh;
     height: 7vh;
 }
+
+/* Start Page */
+
+#startPageContainer{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 15vh;
+    left: 0;
+    right: 0;
+    align-items: center;
+}
+
+#startPageTitle{
+    font-size: 50px;
+}
+
+#btnStartGame{
+    border: none;
+    font-size: 25px;
+    padding: 15px;
+}
