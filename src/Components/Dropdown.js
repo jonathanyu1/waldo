@@ -4,13 +4,17 @@ const Dropdown = (props) => {
     const {gameChars} = props;
 
     return (
-        <div className='dropdownContainer' style={{left: props.clickCoords.x, top: props.clickCoords.y}}>
+        <div className='dropdownContainer' style={{left: props.clickCoords.pageX, top: props.clickCoords.pageY}}>
             <div id='dropdownBox'>
             </div>
             <div id='dropdownCharsContainer'>
                 {gameChars.map((gameChar)=>{
                     return (
-                        <div id={`dropdown${gameChar.name.charAt(0).toUpperCase()+gameChar.name.slice(1)}`} className='dropdownChar'>
+                        <div 
+                            id={`dropdown${gameChar.name.charAt(0).toUpperCase()+gameChar.name.slice(1)}`} 
+                            className='dropdownChar'
+                            onClick={()=>props.handleCharSelection(props.clickCoords, gameChar.name)}
+                        >
                             <img 
                                 src={require(`../Images/Header/${gameChar.name}Header.png`).default}
                                 id={`dropdown${gameChar.name.charAt(0).toUpperCase()+gameChar.name.slice(1)}Img`}

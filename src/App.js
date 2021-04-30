@@ -4,6 +4,9 @@ import Header from './Components/Header';
 import StartPage from './Components/StartPage';
 import characterFactory from './Factories/characterFactory';
 import GameController from './Components/GameController';
+import has from 'lodash'
+
+
 
 const App = () => {
     const [gameStart, setGameStart] = useState(false);
@@ -20,6 +23,22 @@ const App = () => {
             tempGameChars.push(characterFactory(charName));
         });
         setGameChars((tempGameChars));
+    }
+
+    const updateGameCharsFound = (charName) => {
+        const  _ = require('lodash');
+        let tempGameChars = _.cloneDeep(gameChars);
+        console.log(tempGameChars);
+        tempGameChars.forEach((gameChar)=>{
+           console.log(gameChar);
+           console.log(gameChar.name);
+           if (gameChar.name === charName){
+              gameChar.setFoundStatus(true);
+           }
+        });
+        console.log(tempGameChars[0].isFound());
+        console.log(gameChars[0].isFound());
+        setGameChars(tempGameChars);
     }
 
     useEffect(()=>{
@@ -42,6 +61,7 @@ const App = () => {
         {gameStart ? null : <StartPage beginGame={beginGame}/>}
         {gameStart ? <GameController 
                         gameChars={gameChars}
+                        updateGameCharsFound={updateGameCharsFound}
                     /> 
         : null}
       </div>
