@@ -10,11 +10,29 @@ import has from 'lodash'
 
 const App = () => {
     const [gameStart, setGameStart] = useState(false);
+    const [gameEnd, setGameEnd] = useState(false);
     const [gameCharNames, setGameCharNames] = useState(['waldo','odlaw','wizard']);
     const [gameChars, setGameChars] = useState([]);
 
     const beginGame = () => {
-      setGameStart(true);
+        setGameStart(true);
+    }
+
+    const checkGameEnd = () =>{
+      let counter = 0;
+      for (let i=0;i<gameChars.length;i++){
+        console.log(gameChars[i].name);
+        console.log(gameChars[i].isFound());
+          if (gameChars[i].isFound()){
+              counter++;
+          } else {
+              return;
+          }
+      }
+      if (counter===gameChars.length && gameChars.length>0){
+        console.log('game end');
+        setGameEnd(true);
+      }
     }
 
     const generateGameChars = () =>{
@@ -36,28 +54,30 @@ const App = () => {
               gameChar.setFoundStatus(true);
            }
         });
-        console.log(tempGameChars[0].isFound());
-        console.log(gameChars[0].isFound());
         setGameChars(tempGameChars);
     }
 
     useEffect(()=>{
-      console.log('gameStart: ',gameStart);
+        console.log('gameStart: ',gameStart);
     },[gameStart])
 
     useEffect(()=>{
-      generateGameChars();
+        generateGameChars();
     },[]);
 
     useEffect(()=>{
-      console.log(gameChars);
-      // console.log(gameChars[0].isFound());
+        console.log(gameChars);
+        // console.log(gameChars[0].isFound());
+        checkGameEnd();
     },[gameChars]);
-
 
     return (
       <div id="appContainer">
-        <Header gameChars={gameChars}/>
+        <Header 
+          gameChars={gameChars}
+          gameStart={gameStart}
+          gameEnd={gameEnd}
+        />
         {gameStart ? null : <StartPage beginGame={beginGame}/>}
         {gameStart ? <GameController 
                         gameChars={gameChars}

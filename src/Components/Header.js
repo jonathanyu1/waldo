@@ -1,25 +1,12 @@
 import React, {useEffect,useState} from 'react';
 import HeaderChar from './HeaderChar';
-// import waldoHeader from '../Images/waldoHeader.png';
+import Timer from './Timer';
 
 const Header = (props) => {
-    const {gameChars} = props;
-    // const [image,setImage]=useState(null);
-    // const [imageName,setImageName]=useState(null);
-
-    // useEffect(()=>{
-    //     setImageName('waldoHeader');
-    //     loadImageName('waldoHeader');
-    // },[]);
+    const {gameChars, gameStart, gameEnd} = props;
 
     return (
         <div id='headerContainer'>
-            {/* <img src={waldoHeader} alt='waldo header'/> */}
-            {/* {image && <img src={image} alt='waldo header'/>}
-            <img src={image}/>
-            <img src={waldoHeader}/>
-            <img src={require(`../Images/waldoHeader.png`).default}/>
-            {imageName && <img src={require(`../Images/${imageName}.png`).default}/>} */}
             <div id='headerCharsContainer'>
                 {gameChars.map(gameChar => {
                     return (
@@ -31,6 +18,7 @@ const Header = (props) => {
                     )
                 })}
             </div>
+            {gameStart ? <Timer gameEnd={gameEnd}/> : null}
         </div>
     )
 

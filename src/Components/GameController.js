@@ -7,6 +7,11 @@ const GameController = (props) => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [clickCoords, setClickCoords] = useState({x:0,y:0,pageX:0,pageY:0, offsetWidth:0, offsetHeight:0});
 
+    // char coords (After calculate)
+    // waldo: (40-44,16-23)
+    // odlaw: (18-21,70-78)
+    // wizard: (67-71,2-8)
+
     const handleCharSelection = (coords, charName) => {
         console.log(coords);
         let posX = Math.round((coords.x/coords.offsetWidth)*100);
@@ -20,7 +25,10 @@ const GameController = (props) => {
         docRef.get().then((doc)=>{
             if (doc.exists) {
                 console.log(doc.data());
-                if (posX > doc.data().xCoordMin && posX < doc.data().xCoordMax && posY > doc.data().yCoordMin && posY < doc.data().yCoordMax){
+                if (posX > doc.data().xCoordMin && 
+                    posX < doc.data().xCoordMax && 
+                    posY > doc.data().yCoordMin && 
+                    posY < doc.data().yCoordMax){
                     updateGameCharsFound(charName);
                 }
             } else {
@@ -30,15 +38,6 @@ const GameController = (props) => {
             console.log('Error getting document:',error);
         });
         setDropdownVisible(false);
-        // console.log(firebase);
-        // console.log(firestore);
-        // firebase.firestore().collection('test').add({
-        //     coords: coords,
-        //     timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        // }).catch(function(error) {
-        //     console.error('Error writing new message to database', error);
-        // });
-        // check with firestore for positions
     }
 
     const updateClickCoords = (e) => {

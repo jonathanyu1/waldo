@@ -49,6 +49,13 @@ html, body, #root, #appContainer{
     height: 7vh;
 }
 
+/* Header Timer */
+
+#timerContainer{
+    font-size: 50px;
+    color: white;
+}
+
 /* Start Page */
 
 #startPageContainer{
