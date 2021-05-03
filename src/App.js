@@ -73,8 +73,19 @@ const App = () => {
             console.log(data.id);
             setDataId(data.id);
         }).catch(function(error) {
-            console.error('Error writing new message to database', error);
+            console.log('Error writing new message to database', error);
         });
+    }
+
+    const addEndTimestampToFirestore = () => {
+      return firebase.firestore()
+            .collection('newGame')
+            .doc(`${dataId}`)
+            .update({
+                endTime: firebase.firestore.FieldValue.serverTimestamp()
+            }).catch(function(error){
+                console.log('Error writing new message to database', error);
+            });
     }
 
     useEffect(()=>{
@@ -96,9 +107,11 @@ const App = () => {
         }
     },[gameChars]);
 
-    // useEffect(()=>{
-
-    // },[gameEnd]);
+    useEffect(()=>{
+        if (gameEnd){
+            addEndTimestampToFirestore();
+        }
+    },[gameEnd]);
 
     return (
       <div id="appContainer">
