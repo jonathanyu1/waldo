@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import StartPage from './Components/StartPage';
 import characterFactory from './Factories/characterFactory';
 import GameController from './Components/GameController';
+import firebase, {firestore} from './Firebase/firebase.js';
 import has from 'lodash'
 
 
@@ -13,26 +14,33 @@ const App = () => {
     const [gameEnd, setGameEnd] = useState(false);
     const [gameCharNames, setGameCharNames] = useState(['waldo','odlaw','wizard']);
     const [gameChars, setGameChars] = useState([]);
+    const [dataId, setDataId] = useState('');
 
     const beginGame = () => {
         setGameStart(true);
     }
 
     const checkGameEnd = () =>{
-      let counter = 0;
-      for (let i=0;i<gameChars.length;i++){
-        console.log(gameChars[i].name);
-        console.log(gameChars[i].isFound());
-          if (gameChars[i].isFound()){
-              counter++;
-          } else {
-              return;
-          }
-      }
-      if (counter===gameChars.length && gameChars.length>0){
-        console.log('game end');
-        setGameEnd(true);
-      }
+      // let counter = 0;
+      // for (let i=0;i<gameChars.length;i++){
+      //   console.log(gameChars[i].name);
+      //   console.log(gameChars[i].isFound());
+      //     if (gameChars[i].isFound()){
+      //         counter++;
+      //     } else {
+      //         return;
+      //     }
+      // }
+      // if (counter===gameChars.length && gameChars.length>0){
+      //   console.log('game end');
+      //   setGameEnd(true);
+      // }
+        let checkFound = gameChars.every(function(gameChar){
+            return gameChar.isFound();
+        });
+        if (checkFound){
+            setGameEnd(true);
+        }
     }
 
     const generateGameChars = () =>{
@@ -57,19 +65,40 @@ const App = () => {
         setGameChars(tempGameChars);
     }
 
-    useEffect(()=>{
-        console.log('gameStart: ',gameStart);
-    },[gameStart])
+    const addTimestampToFirestore = () =>{
+        return firebase.firestore().collection('newGame').add({
+            startTime: firebase.firestore.FieldValue.serverTimestamp()
+        }).then((data)=>{
+            console.log(data);
+            console.log(data.id);
+            setDataId(data.id);
+        }).catch(function(error) {
+            console.error('Error writing new message to database', error);
+        });
+    }
 
     useEffect(()=>{
         generateGameChars();
     },[]);
 
     useEffect(()=>{
+        console.log('gameStart: ',gameStart);
+        if (gameStart){
+            addTimestampToFirestore();
+        }
+    },[gameStart]);
+
+
+    useEffect(()=>{
         console.log(gameChars);
-        // console.log(gameChars[0].isFound());
-        checkGameEnd();
+        if (gameStart){
+          checkGameEnd();
+        }
     },[gameChars]);
+
+    // useEffect(()=>{
+
+    // },[gameEnd]);
 
     return (
       <div id="appContainer">
