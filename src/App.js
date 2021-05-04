@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import StartPage from './Components/StartPage';
 import characterFactory from './Factories/characterFactory';
 import GameController from './Components/GameController';
+import PostGame from './Components/PostGame';
 import firebase, {firestore} from './Firebase/firebase.js';
 import has from 'lodash'
 
@@ -88,6 +89,44 @@ const App = () => {
             });
     }
 
+    const getFinalTime = () => {
+        let tempFinalTime = null;
+        let docRef = firebase.firestore()
+                  .collection('newGame')
+                  .doc(`${dataId}`);
+        tempFinalTime = docRef.get().then((doc)=>{
+            if (doc.exists) {
+                console.log(doc.data());
+                console.log(doc.data().endTime.seconds);
+                console.log(doc.data().startTime.seconds);
+                console.log(doc.data().endTime.seconds-doc.data().startTime.seconds);
+                return doc.data().endTime.seconds-doc.data().startTime.seconds;
+            } else {
+                console.log('no such document');
+                return null;
+            }
+        }).catch((error)=>{
+            console.log('Error getting document:',error);
+            return null;
+        });
+        console.log('hi');
+        return tempFinalTime;
+    }
+
+    const handleSubmitScore = (userName, time, timeInSecs) => {
+        return firebase.firestore().collection('leaderboard').add({
+            name: userName,
+            time,
+            timeInSecs
+        }).catch(function(error) {
+            console.log('Error writing new message to database', error);
+        });
+    }
+
+    const loadLeaderboard = () => {
+
+    }
+
     useEffect(()=>{
         generateGameChars();
     },[]);
@@ -107,11 +146,12 @@ const App = () => {
         }
     },[gameChars]);
 
-    useEffect(()=>{
-        if (gameEnd){
-            addEndTimestampToFirestore();
-        }
-    },[gameEnd]);
+    // useEffect(()=>{
+    //     if (gameEnd){
+    //         // this should probably be run async in PostGame
+    //         addEndTimestampToFirestore();
+    //     }
+    // },[gameEnd]);
 
     return (
       <div id="appContainer">
@@ -121,11 +161,20 @@ const App = () => {
           gameEnd={gameEnd}
         />
         {gameStart ? null : <StartPage beginGame={beginGame}/>}
-        {gameStart ? <GameController 
-                        gameChars={gameChars}
-                        updateGameCharsFound={updateGameCharsFound}
-                    /> 
+        {gameStart && !gameEnd ? <GameController 
+                                    gameChars={gameChars}
+                                    updateGameCharsFound={updateGameCharsFound}
+                                 /> 
         : null}
+        {gameStart && gameEnd ? <PostGame
+                                    gameStart={gameStart}
+                                    gameEnd={gameEnd}
+                                    addEndTimestampToFirestore={addEndTimestampToFirestore}
+                                    getFinalTime={getFinalTime}
+                                    handleSubmitScore={handleSubmitScore}
+                                    loadLeaderboard={loadLeaderboard}
+                                />
+                                :null}
       </div>
     );
 }
