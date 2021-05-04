@@ -124,7 +124,20 @@ const App = () => {
     }
 
     const loadLeaderboard = () => {
-
+        let tempLeaderboard = [];
+        let leaderRef = firebase.firestore()
+                    .collection('leaderboard')
+                    .orderBy('timeInSecs')
+                    .limit(10);
+        leaderRef.get().then((ref)=>{
+            ref.forEach((doc)=>{
+                console.log(doc.data());
+                tempLeaderboard.push(doc.data());
+            });
+        }).catch((error)=>{
+            console.log('Error getting document:',error);
+        });
+        return tempLeaderboard;
     }
 
     useEffect(()=>{

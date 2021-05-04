@@ -140,5 +140,21 @@ html, body, #root, #appContainer{
 }
 
 #postGameTime{
-    
+
+}
+
+/* leaderboard */ 
+
+#leaderboardContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.highScoreContainer, .myHighScoreContainer, .highScoreTitle{
+    display: flex;
+    justify-content: space-between;
+}
+
+.myHighScoreContainer{
+    font-weight: 700;
 }

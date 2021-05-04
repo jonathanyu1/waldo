@@ -7,6 +7,7 @@ const PostGame = (props) => {
     const [userNameInput, setUserNameInput] = useState('');
     const [showLeaderboard, setShowLeaderboard] = useState(false);
     const [leaderboard, setLeaderboard] = useState(null);
+    const [mappedLeaderboard, setMappedLeaderboard] = useState(null);
     const loadingIcon = <i className="fa fa-spinner" aria-hidden="true"></i>
 
     const leadZero = (i) => {
@@ -37,17 +38,52 @@ const PostGame = (props) => {
         await handleSubmitScore(userNameInput,finalTime,finalTimeSecs);
         setShowLeaderboard(true);
     }
+    
+    const handleCancel = async () => {
+        setShowLeaderboard(true);
+    }
 
     const handleLoadLeaderboard = async () => {
         let tempLeaderboard = await loadLeaderboard();
+        console.log(tempLeaderboard);
         setLeaderboard(tempLeaderboard);
     }
+
+    const mapLeaderboard = () => {
+        console.log(leaderboard);
+        if (leaderboard){
+            let tempMap = leaderboard.map((leader)=>{
+                console.log(leader);
+                // return(
+                //     (leader.name === userNameInput ? 
+                //             <div className='myHighScoreContainer'> 
+                //                 <div className='highScoreName'>{leader.name}</div>
+                //                 <div className='highScoreTime'>{leader.time}</div>
+                //             </div>
+                //         : 
+                //             <div className='highScoreContainer'>
+                //                 <div className='highScoreName'>{leader.name}</div>
+                //                 <div className='highScoreTime'>{leader.time}</div>
+                //             </div>
+                //     )
+                // )
+            });
+            console.log(tempMap);
+            console.log(leaderboard);
+            setMappedLeaderboard(tempMap);
+        }
+    }
+
+    useEffect(()=>{
+        console.log(leaderboard);
+        mapLeaderboard();
+    },[leaderboard]);
 
     useEffect(()=>{
         if (showLeaderboard){
             handleLoadLeaderboard();
         }
-    },[showLeaderboard])
+    },[showLeaderboard]);
 
     useEffect(()=>{
         if (gameEnd){
@@ -59,9 +95,28 @@ const PostGame = (props) => {
 
     return (
         <div id='postGameContainer'>
-            {showLeaderboard ? 
+            {(showLeaderboard && leaderboard) ? 
             <div id='leaderboardContainer'>
-                {leaderboard}
+                <div className='highScoreTitle'>
+                    <div className='highScoreTitleName'>Name</div>
+                    <div className='highScoreTitleScore'>Score</div>
+                </div>
+                {/* {leaderboard.map((highscore)=>{
+                    return (
+                        (highscore.name === userNameInput ? 
+                                <div className='myHighScoreContainer'> 
+                                    <div className='highScoreName'>{highscore.name}</div>
+                                    <div className='highScoreTime'>{highscore.time}</div>
+                                </div>
+                            : 
+                                <div className='highScoreContainer'>
+                                    <div className='highScoreName'>{highscore.name}</div>
+                                    <div className='highScoreTime'>{highscore.time}</div>
+                                </div>
+                        )
+                    )
+                })} */}
+                {mappedLeaderboard}
             </div>
             :
             <div id='postGameFormContainer'>
@@ -94,6 +149,14 @@ const PostGame = (props) => {
                         type='button'
                     >
                         Submit
+                    </button>
+                    <button 
+                        onClick={handleCancel}
+                        id='btnCancelSubmit'
+                        className='btnCancelSubmit'
+                        type='button'
+                    >
+                        Cancel
                     </button>
                 </div> 
                 :
