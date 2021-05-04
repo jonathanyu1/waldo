@@ -7,7 +7,6 @@ const PostGame = (props) => {
     const [userNameInput, setUserNameInput] = useState('');
     const [showLeaderboard, setShowLeaderboard] = useState(false);
     const [leaderboard, setLeaderboard] = useState(null);
-    const [mappedLeaderboard, setMappedLeaderboard] = useState(null);
     const loadingIcon = <i className="fa fa-spinner" aria-hidden="true"></i>
 
     const leadZero = (i) => {
@@ -49,34 +48,8 @@ const PostGame = (props) => {
         setLeaderboard(tempLeaderboard);
     }
 
-    const mapLeaderboard = () => {
-        console.log(leaderboard);
-        if (leaderboard){
-            let tempMap = leaderboard.map((leader)=>{
-                console.log(leader);
-                // return(
-                //     (leader.name === userNameInput ? 
-                //             <div className='myHighScoreContainer'> 
-                //                 <div className='highScoreName'>{leader.name}</div>
-                //                 <div className='highScoreTime'>{leader.time}</div>
-                //             </div>
-                //         : 
-                //             <div className='highScoreContainer'>
-                //                 <div className='highScoreName'>{leader.name}</div>
-                //                 <div className='highScoreTime'>{leader.time}</div>
-                //             </div>
-                //     )
-                // )
-            });
-            console.log(tempMap);
-            console.log(leaderboard);
-            setMappedLeaderboard(tempMap);
-        }
-    }
-
     useEffect(()=>{
         console.log(leaderboard);
-        mapLeaderboard();
     },[leaderboard]);
 
     useEffect(()=>{
@@ -88,8 +61,6 @@ const PostGame = (props) => {
     useEffect(()=>{
         if (gameEnd){
             handleGameEnd();
-            // this should probably be run async in PostGame
-            // addEndTimestampToFirestore();
         }
     },[gameEnd]);
 
@@ -101,7 +72,8 @@ const PostGame = (props) => {
                     <div className='highScoreTitleName'>Name</div>
                     <div className='highScoreTitleScore'>Score</div>
                 </div>
-                {/* {leaderboard.map((highscore)=>{
+                {leaderboard.map((highscore)=>{
+                    console.log(highscore);
                     return (
                         (highscore.name === userNameInput ? 
                                 <div className='myHighScoreContainer'> 
@@ -115,8 +87,7 @@ const PostGame = (props) => {
                                 </div>
                         )
                     )
-                })} */}
-                {mappedLeaderboard}
+                })}
             </div>
             :
             <div id='postGameFormContainer'>
