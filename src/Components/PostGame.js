@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import Leaderboard from './Leaderboard';
 
 const PostGame = (props) => {
-    const {gameStart, gameEnd, addEndTimestampToFirestore, getFinalTime, handleSubmitScore, loadLeaderboard} = props;
+    const {gameStart, gameEnd, addEndTimestampToFirestore, getFinalTime, handleSubmitScore, loadLeaderboard, newGame} = props;
     const [finalTimeSecs, setFinalTimeSecs] = useState(null);
     const [finalTime, setFinalTime] = useState(null);
     const [userNameInput, setUserNameInput] = useState('');
@@ -32,31 +32,6 @@ const PostGame = (props) => {
         setFinalTime(`${hour}:${min}:${sec}`);
     }
 
-    // const handleSubmit = async () => {
-    //     await handleSubmitScore(userNameInput,finalTime,finalTimeSecs);
-    //     setShowLeaderboard(true);
-    // }
-    
-    // const handleCancel = async () => {
-    //     setShowLeaderboard(true);
-    // }
-
-    // const handleLoadLeaderboard = async () => {
-    //     let tempLeaderboard = await loadLeaderboard();
-    //     console.log(tempLeaderboard);
-    //     setLeaderboard(tempLeaderboard);
-    // }
-
-    // useEffect(()=>{
-    //     console.log(leaderboard);
-    // },[leaderboard]);
-
-    // useEffect(()=>{
-    //     if (showLeaderboard){
-    //         handleLoadLeaderboard();
-    //     }
-    // },[showLeaderboard]);
-
     const handleSubmit = async () => {
         await handleSubmitScore(userNameInput,finalTime,finalTimeSecs);
         handleLoadLeaderboard();
@@ -66,8 +41,24 @@ const PostGame = (props) => {
         handleLoadLeaderboard();
     }
 
+    const resetStates = () => {
+        setFinalTimeSecs(null);
+        setFinalTime(null);
+        setUserNameInput('');
+        setShowLeaderboard(false);
+        setLeaderboard([]);
+    }
+
+    const handleReturnHome = () => {
+        // reset states
+        resetStates();
+        // reset states in App, return to main
+        newGame();
+    }
+
     const handleLoadLeaderboard = async () => {
         try{
+            setShowLeaderboard(true);
             let tempLeaderboard = await loadLeaderboard();
             console.log(tempLeaderboard);
             setLeaderboard(tempLeaderboard);
@@ -78,13 +69,6 @@ const PostGame = (props) => {
     }
 
     useEffect(()=>{
-        if (leaderboard.length>0){
-            setShowLeaderboard(true);
-            console.log(leaderboard);
-        }
-    },[leaderboard]);
-
-    useEffect(()=>{
         if (gameEnd){
             handleGameEnd();
         }
@@ -93,29 +77,22 @@ const PostGame = (props) => {
     return (
         <div id='postGameContainer'>
             {showLeaderboard ? 
-                <div id='leaderboardContainer'>
-                    <div className='highScoreTitle'>
-                        <div className='highScoreTitleName'>Name</div>
-                        <div className='highScoreTitleScore'>Score</div>
+                <React.Fragment>
+                    <div id='leaderboardTitle'>Highscores</div>
+                    <div id='leaderboardContainer'>
+                        <div className='highScoreTitle'>
+                            <div className='highScoreTitleName'>Name</div>
+                            <div className='highScoreTitleScore'>Score</div>
+                        </div>
+                        {leaderboard.length ? <Leaderboard leaderboard={leaderboard} userNameInput={userNameInput}/> : loadingIcon}
                     </div>
-                    {leaderboard.length ? <Leaderboard leaderboard={leaderboard} userNameInput={userNameInput}/> : loadingIcon}
-                    {/* {leaderboard.map((highscore)=>{
-                        console.log(highscore);
-                        return (
-                            (highscore.name === userNameInput ? 
-                                    <div className='myHighScoreContainer'> 
-                                        <div className='highScoreName'>{highscore.name}</div>
-                                        <div className='highScoreTime'>{highscore.time}</div>
-                                    </div>
-                                : 
-                                    <div className='highScoreContainer'>
-                                        <div className='highScoreName'>{highscore.name}</div>
-                                        <div className='highScoreTime'>{highscore.time}</div>
-                                    </div>
-                            )
-                        )
-                    })} */}
-                </div>
+                    <button 
+                        id='btnReturnHome'
+                        className='btnChangePage'
+                        onClick={handleReturnHome}
+                    >Return Home
+                    </button>
+                </React.Fragment>
             :
             <div id='postGameFormContainer'>
                 <div id='postGameText'>

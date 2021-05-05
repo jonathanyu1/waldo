@@ -13,6 +13,7 @@ const StartPage = (props) => {
             </div>
             <button 
                 id='btnStartGame'
+                className='btnChangePage'
                 onClick={props.beginGame}
             >
                 Start Game

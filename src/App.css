@@ -72,10 +72,14 @@ html, body, #root, #appContainer{
     font-size: 50px;
 }
 
-#btnStartGame{
+#btnStartGame, #btnReturnHome{
     border: none;
     font-size: 25px;
     padding: 15px;
+}
+
+#btnStartGame:hover, #btnReturnHome:hover{
+    background-color: lightgrey;
 }
 
 /* Game */

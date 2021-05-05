@@ -17,6 +17,16 @@ const App = () => {
     const [gameChars, setGameChars] = useState([]);
     const [dataId, setDataId] = useState('');
 
+
+    const newGame = () => {
+        setGameStart(false);
+        setGameEnd(false);
+        setGameCharNames(['waldo','odlaw','wizard']);
+        setGameChars([]);
+        setDataId('');
+        generateGameChars();
+    }
+
     const beginGame = () => {
         setGameStart(true);
     }
@@ -203,6 +213,7 @@ const App = () => {
                                     getFinalTime={getFinalTime}
                                     handleSubmitScore={handleSubmitScore}
                                     loadLeaderboard={loadLeaderboard}
+                                    newGame={newGame}
                                 />
                                 :null}
       </div>
