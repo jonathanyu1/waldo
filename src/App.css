@@ -131,6 +131,18 @@ html, body, #root, #appContainer{
     width: 35px;
 }
 
+/* choice popup */
+
+#choicePopupContainer{
+    position: absolute;
+    top: 13vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 50px;
+    background-color: black;
+    color: white;
+}
+
 /* Post Game */ 
 
 #postGameContainer{

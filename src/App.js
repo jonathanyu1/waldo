@@ -5,10 +5,9 @@ import StartPage from './Components/StartPage';
 import characterFactory from './Factories/characterFactory';
 import GameController from './Components/GameController';
 import PostGame from './Components/PostGame';
+import ChoicePopup from './Components/ChoicePopup';
 import firebase, {firestore} from './Firebase/firebase.js';
 import has from 'lodash'
-
-
 
 const App = () => {
     const [gameStart, setGameStart] = useState(false);
@@ -16,7 +15,14 @@ const App = () => {
     const [gameCharNames, setGameCharNames] = useState(['waldo','odlaw','wizard']);
     const [gameChars, setGameChars] = useState([]);
     const [dataId, setDataId] = useState('');
+    const [dropdownChoice, setDropdownChoice] = useState('');
+    const [boolChoiceMade, setBoolChoiceMade] = useState(null);
 
+    const updateChoiceMade = (charName, choiceMadeBoolean) => {
+        console.log(choiceMadeBoolean);
+        setDropdownChoice(charName);
+        setBoolChoiceMade(choiceMadeBoolean);
+    }
 
     const newGame = () => {
         setGameStart(false);
@@ -133,23 +139,6 @@ const App = () => {
         });
     }
 
-    // const loadLeaderboard = () => {
-    //     let tempLeaderboard = [];
-    //     let leaderRef = firebase.firestore()
-    //                 .collection('leaderboard')
-    //                 .orderBy('timeInSecs')
-    //                 .limit(10);
-    //     leaderRef.get().then((ref)=>{
-    //         ref.forEach((doc)=>{
-    //             console.log(doc.data());
-    //             tempLeaderboard.push(doc.data());
-    //         });
-    //     }).catch((error)=>{
-    //         console.log('Error getting document:',error);
-    //     });
-    //     return tempLeaderboard;
-    // }
-
     const loadLeaderboard = () => {
         let tempArray = [];
         let leaderRef = firebase.firestore()
@@ -172,12 +161,20 @@ const App = () => {
     },[]);
 
     useEffect(()=>{
+        if (gameStart && dropdownChoice && boolChoiceMade!==null){
+            setTimeout(()=>{
+                setDropdownChoice('');
+                setBoolChoiceMade(null);
+            }, 4000);
+        }
+    },[boolChoiceMade]);
+
+    useEffect(()=>{
         console.log('gameStart: ',gameStart);
         if (gameStart){
             addTimestampToFirestore();
         }
     },[gameStart]);
-
 
     useEffect(()=>{
         console.log(gameChars);
@@ -186,24 +183,24 @@ const App = () => {
         }
     },[gameChars]);
 
-    // useEffect(()=>{
-    //     if (gameEnd){
-    //         // this should probably be run async in PostGame
-    //         addEndTimestampToFirestore();
-    //     }
-    // },[gameEnd]);
-
     return (
       <div id="appContainer">
         <Header 
-          gameChars={gameChars}
-          gameStart={gameStart}
-          gameEnd={gameEnd}
+            gameChars={gameChars}
+            gameStart={gameStart}
+            gameEnd={gameEnd}
         />
+        {gameStart && !gameEnd && boolChoiceMade!==null && 
+            <ChoicePopup 
+                boolChoiceMade={boolChoiceMade} 
+                dropdownChoice={dropdownChoice}
+            />
+        }
         {gameStart ? null : <StartPage beginGame={beginGame}/>}
         {gameStart && !gameEnd ? <GameController 
                                     gameChars={gameChars}
                                     updateGameCharsFound={updateGameCharsFound}
+                                    updateChoiceMade={updateChoiceMade}
                                  /> 
         : null}
         {gameStart && gameEnd ? <PostGame
@@ -215,7 +212,7 @@ const App = () => {
                                     loadLeaderboard={loadLeaderboard}
                                     newGame={newGame}
                                 />
-                                :null}
+        : null}
       </div>
     );
 }

@@ -3,7 +3,7 @@ import Dropdown from './Dropdown';
 import firebase, {firestore} from '../Firebase/firebase.js';
 
 const GameController = (props) => {
-    const {gameChars, updateGameCharsFound} = props;
+    const {gameChars, updateGameCharsFound, updateChoiceMade} = props;
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [clickCoords, setClickCoords] = useState({x:0,y:0,pageX:0,pageY:0, offsetWidth:0, offsetHeight:0});
 
@@ -30,6 +30,9 @@ const GameController = (props) => {
                     posY > doc.data().yCoordMin && 
                     posY < doc.data().yCoordMax){
                     updateGameCharsFound(charName);
+                    updateChoiceMade(charName,true);
+                } else {
+                    updateChoiceMade(charName,false);
                 }
             } else {
                 console.log('no such document');
