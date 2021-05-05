@@ -18,7 +18,7 @@ const Header = (props) => {
                     )
                 })}
             </div>
-            {gameStart ? <Timer gameEnd={gameEnd}/> : null}
+            {gameStart && !gameEnd ? <Timer gameEnd={gameEnd}/> : null}
         </div>
     )
 
