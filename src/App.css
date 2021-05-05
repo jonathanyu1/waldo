@@ -134,13 +134,14 @@ html, body, #root, #appContainer{
 /* choice popup */
 
 #choicePopupContainer{
-    position: absolute;
+    position: fixed;
     top: 13vh;
     left: 50%;
     transform: translate(-50%, 0);
-    font-size: 50px;
+    font-size: 25px;
     background-color: black;
     color: white;
+    pointer-events: none;
 }
 
 /* Post Game */ 
