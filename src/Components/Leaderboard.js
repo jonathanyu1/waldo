@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const Leaderboard = (props) => {
 
@@ -24,12 +25,12 @@ const Leaderboard = (props) => {
             {props.leaderboard.map((highscore)=>{
                 return (
                     (highscore.name === props.userNameInput ? 
-                            <div className='myHighScoreContainer'> 
+                            <div className='myHighScoreContainer' key={uuidv4()}> 
                                 <div className='highScoreName'>{highscore.name}</div>
                                 <div className='highScoreTime'>{highscore.time}</div>
                             </div>
                         : 
-                            <div className='highScoreContainer'>
+                            <div className='highScoreContainer'  key={uuidv4()}>
                                 <div className='highScoreName'>{highscore.name}</div>
                                 <div className='highScoreTime'>{highscore.time}</div>
                             </div>

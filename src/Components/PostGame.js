@@ -3,7 +3,7 @@ import Leaderboard from './Leaderboard';
 var Filter = require('bad-words');
 
 const PostGame = (props) => {
-    const {gameStart, gameEnd, addEndTimestampToFirestore, getFinalTime, handleSubmitScore, loadLeaderboard, newGame} = props;
+    const {gameEnd, addEndTimestampToFirestore, getFinalTime, handleSubmitScore, loadLeaderboard, newGame} = props;
     const [finalTimeSecs, setFinalTimeSecs] = useState(null);
     const [finalTime, setFinalTime] = useState(null);
     const [userNameInput, setUserNameInput] = useState('');
@@ -12,12 +12,6 @@ const PostGame = (props) => {
     const [nameIsProfanity, setNameIsProfanity] = useState(false);
     const filter = new Filter();
     const loadingIcon = <i className="fa fa-spinner" aria-hidden="true"></i>
-
-    // useEffect(()=>{
-    //     const filter = new Filter();
-    //     console.log(filter.isProfane('idiot'));
-    //     console.log(filter.isProfane('fuck'));
-    // },[]);
 
     const handleInputChange = (e) => {
         setUserNameInput(`${e.target.value}`);

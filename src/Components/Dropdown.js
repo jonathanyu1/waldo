@@ -11,6 +11,7 @@ const Dropdown = (props) => {
                 {gameChars.map((gameChar)=>{
                     return (
                         <div 
+                            key={`dropdown${gameChar.name.charAt(0).toUpperCase()+gameChar.name.slice(1)}`}
                             id={`dropdown${gameChar.name.charAt(0).toUpperCase()+gameChar.name.slice(1)}`} 
                             className='dropdownChar'
                             onClick={()=>props.handleCharSelection(props.clickCoords, gameChar.name)}

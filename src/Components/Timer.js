@@ -1,10 +1,17 @@
 import React, {useEffect,useState} from 'react';
 
 const Timer = (props) => {
-    const {gameEnd} = props;
+    const {gameEnd, getFinalTime} = props;
     const [startTime, setStartTime] = useState(Math.floor(Date.now() / 1000));
     const [displayTime, setDisplayTime] = useState('00:00:00');
     const [timer, setTimer] = useState();
+
+    const leadZero = (i) => {
+        if (i<10){
+            i='0'+i;
+        }
+        return i;
+    }
 
     const startTimer = () => {
         let currTime = Math.floor(Date.now() / 1000);
@@ -15,38 +22,24 @@ const Timer = (props) => {
         sec=leadZero(sec);
         min=leadZero(min);
         hour=leadZero(hour);
-        // console.log('---------');
-        // console.log(currTime);
-        // console.log(startTime);
-        // console.log(diff);
-        // console.log('min:',min);
-        // console.log('sec:',sec);
         setDisplayTime(`${hour}:${min}:${sec}`);
-        // let t = setTimeout(startTimer,1000);
     }
 
-    const leadZero = (i) => {
-        if (i<10){
-            i='0'+i;
-        }
-        return i;
+    const clearDisplayTime = () => {
+        setDisplayTime('');
     }
 
     useEffect(()=>{
         if (gameEnd){
             console.log('timer game end');
             clearInterval(timer);
+            clearDisplayTime();
         }
     },[gameEnd]);
 
     useEffect(()=>{
-        // startTimer();
         let timer = setTimer(setInterval(startTimer,1000));
     },[startTime]);
-
-    // useEffect(()=>{
-    //     setStartTime(Math.floor(Date.now() / 1000));
-    // },[]);
 
     return (
         <div id='timerContainer'>

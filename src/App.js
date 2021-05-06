@@ -189,6 +189,7 @@ const App = () => {
             gameChars={gameChars}
             gameStart={gameStart}
             gameEnd={gameEnd}
+            getFinalTime={getFinalTime}
         />
         {gameStart && !gameEnd && boolChoiceMade!==null && 
             <ChoicePopup 
