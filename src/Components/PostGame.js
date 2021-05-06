@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import Leaderboard from './Leaderboard';
+var Filter = require('bad-words');
 
 const PostGame = (props) => {
     const {gameStart, gameEnd, addEndTimestampToFirestore, getFinalTime, handleSubmitScore, loadLeaderboard, newGame} = props;
@@ -8,7 +9,15 @@ const PostGame = (props) => {
     const [userNameInput, setUserNameInput] = useState('');
     const [showLeaderboard, setShowLeaderboard] = useState(false);
     const [leaderboard, setLeaderboard] = useState([]);
+    const [nameIsProfanity, setNameIsProfanity] = useState(false);
+    const filter = new Filter();
     const loadingIcon = <i className="fa fa-spinner" aria-hidden="true"></i>
+
+    // useEffect(()=>{
+    //     const filter = new Filter();
+    //     console.log(filter.isProfane('idiot'));
+    //     console.log(filter.isProfane('fuck'));
+    // },[]);
 
     const handleInputChange = (e) => {
         setUserNameInput(`${e.target.value}`);
@@ -30,6 +39,15 @@ const PostGame = (props) => {
         let hour = leadZero(Math.floor(tempFinalTimeSecs/3600));
         setFinalTimeSecs(tempFinalTimeSecs);
         setFinalTime(`${hour}:${min}:${sec}`);
+    }
+
+    const handleInputCheck = () => {
+        if (filter.isProfane(userNameInput)){
+            setNameIsProfanity(true);
+        } else {
+            setNameIsProfanity(false);
+            handleSubmit();
+        }
     }
 
     const handleSubmit = async () => {
@@ -96,11 +114,11 @@ const PostGame = (props) => {
             :
             <div id='postGameFormContainer'>
                 <div id='postGameText'>
-                    Your time is: 
+                    Your time is: {finalTime ? finalTime : loadingIcon}
                 </div>
-                <div id='postGameTime'>
+                {/* <div id='postGameTime'>
                     {finalTime ? finalTime : loadingIcon}
-                </div>
+                </div> */}
                 {finalTime ?
                 <div id='postGameForm'>
                     <label 
@@ -119,7 +137,7 @@ const PostGame = (props) => {
                     />
                     <button 
                         // onClick={()=>handleSubmitScore(userNameInput,finalTime,finalTimeSecs)}
-                        onClick={handleSubmit}
+                        onClick={handleInputCheck}
                         id='btnSubmitScore'
                         className='btnSubmitScore'
                         type='button'
@@ -134,6 +152,7 @@ const PostGame = (props) => {
                     >
                         Cancel
                     </button>
+                    {nameIsProfanity ? <div id='inputError'>Your name is not allowed, try again.</div>:null}
                 </div> 
                 :
                 null}
