@@ -191,6 +191,14 @@ const App = () => {
             gameEnd={gameEnd}
             getFinalTime={getFinalTime}
         />
+        {/* {gameStart &&
+            <Header 
+                gameChars={gameChars}
+                gameStart={gameStart}
+                gameEnd={gameEnd}
+                getFinalTime={getFinalTime}
+            />
+        } */}
         {gameStart && !gameEnd && boolChoiceMade!==null && 
             <ChoicePopup 
                 boolChoiceMade={boolChoiceMade} 
