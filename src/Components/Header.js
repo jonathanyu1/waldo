@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from 'react';
+import React from 'react';
 import HeaderChar from './HeaderChar';
 import Timer from './Timer';
 

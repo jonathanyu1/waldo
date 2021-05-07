@@ -20,6 +20,8 @@ html, body, #root, #appContainer{
 
 #headerContainer{
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     position: fixed;
     height: 10vh;
     background-color: var(--mainBgColor);
