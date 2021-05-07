@@ -5,7 +5,7 @@
 :root{
     --mainBgColor: #121c35;
     /* --dropdownCharBgColor: rgba(53, 79, 145, 0.7); */
-    --dropdownCharBgColor:rgba(18, 28, 53, 1)
+    --dropdownCharBgColor:rgba(18, 28, 53, 1);
 }
 
 html, body, #root, #appContainer{
@@ -190,10 +190,12 @@ html, body, #root, #appContainer{
     top: 13vh;
     left: 50%;
     transform: translate(-50%, 0);
-    font-size: 25px;
-    background-color: black;
+    background-color: var(--mainBgColor);
     color: white;
     pointer-events: none;
+    padding: 10px 15px;
+    font-size: 25px;
+    border-radius: 10px;
 }
 
 /* Post Game */ 
