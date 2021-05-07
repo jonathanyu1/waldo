@@ -90,7 +90,7 @@ const PostGame = (props) => {
         <div id='postGameContainer'>
             {showLeaderboard ? 
                 <React.Fragment>
-                    <div id='leaderboardTitle'>Highscores</div>
+                    <div id='leaderboardTitle'>Leaderboard</div>
                     <div id='leaderboardContainer'>
                         <div className='highScoreTitle'>
                             <div className='highScoreTitleName'>Name</div>
