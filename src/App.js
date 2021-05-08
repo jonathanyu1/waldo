@@ -18,7 +18,6 @@ const App = () => {
     const [boolChoiceMade, setBoolChoiceMade] = useState(null);
 
     const updateChoiceMade = (charName, choiceMadeBoolean) => {
-        console.log(choiceMadeBoolean);
         setDropdownChoice(charName);
         setBoolChoiceMade(choiceMadeBoolean);
     }
@@ -37,20 +36,6 @@ const App = () => {
     }
 
     const checkGameEnd = () =>{
-      // let counter = 0;
-      // for (let i=0;i<gameChars.length;i++){
-      //   console.log(gameChars[i].name);
-      //   console.log(gameChars[i].isFound());
-      //     if (gameChars[i].isFound()){
-      //         counter++;
-      //     } else {
-      //         return;
-      //     }
-      // }
-      // if (counter===gameChars.length && gameChars.length>0){
-      //   console.log('game end');
-      //   setGameEnd(true);
-      // }
         let checkFound = gameChars.every(function(gameChar){
             return gameChar.isFound();
         });
@@ -70,10 +55,7 @@ const App = () => {
     const updateGameCharsFound = (charName) => {
         const  _ = require('lodash');
         let tempGameChars = _.cloneDeep(gameChars);
-        console.log(tempGameChars);
         tempGameChars.forEach((gameChar)=>{
-           console.log(gameChar);
-           console.log(gameChar.name);
            if (gameChar.name === charName){
               gameChar.setFoundStatus(true);
            }
@@ -85,8 +67,6 @@ const App = () => {
         return firebase.firestore().collection('newGame').add({
             startTime: firebase.firestore.FieldValue.serverTimestamp()
         }).then((data)=>{
-            console.log(data);
-            console.log(data.id);
             setDataId(data.id);
         }).catch(function(error) {
             console.log('Error writing new message to database', error);
@@ -111,10 +91,6 @@ const App = () => {
                   .doc(`${dataId}`);
         tempFinalTime = docRef.get().then((doc)=>{
             if (doc.exists) {
-                console.log(doc.data());
-                console.log(doc.data().endTime.seconds);
-                console.log(doc.data().startTime.seconds);
-                console.log(doc.data().endTime.seconds-doc.data().startTime.seconds);
                 return doc.data().endTime.seconds-doc.data().startTime.seconds;
             } else {
                 console.log('no such document');
@@ -124,7 +100,6 @@ const App = () => {
             console.log('Error getting document:',error);
             return null;
         });
-        console.log('hi');
         return tempFinalTime;
     }
 
@@ -169,14 +144,12 @@ const App = () => {
     },[boolChoiceMade]);
 
     useEffect(()=>{
-        console.log('gameStart: ',gameStart);
         if (gameStart){
             addTimestampToFirestore();
         }
     },[gameStart]);
 
     useEffect(()=>{
-        console.log(gameChars);
         if (gameStart){
           checkGameEnd();
         }

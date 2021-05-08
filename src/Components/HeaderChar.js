@@ -1,10 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 const HeaderChar = (props) => {
-
-    useEffect(()=>{
-        console.log(props.isFound);
-    },[])
 
     return (
         <div 

@@ -31,7 +31,6 @@ const Timer = (props) => {
 
     useEffect(()=>{
         if (gameEnd){
-            console.log('timer game end');
             clearInterval(timer);
             clearDisplayTime();
         }

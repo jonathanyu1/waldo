@@ -27,7 +27,6 @@ const PostGame = (props) => {
     const handleGameEnd = async () => {
         await addEndTimestampToFirestore();
         let tempFinalTimeSecs = await getFinalTime();
-        console.log('tempFinalTimeSecs:',tempFinalTimeSecs);
         let sec = leadZero(Math.floor(tempFinalTimeSecs%60));
         let min = leadZero(Math.floor(tempFinalTimeSecs/60));
         let hour = leadZero(Math.floor(tempFinalTimeSecs/3600));
@@ -72,7 +71,6 @@ const PostGame = (props) => {
         try{
             setShowLeaderboard(true);
             let tempLeaderboard = await loadLeaderboard();
-            console.log(tempLeaderboard);
             setLeaderboard(tempLeaderboard);
         } catch(error){
             console.log('error:',error);
@@ -136,7 +134,6 @@ const PostGame = (props) => {
                                     />
                                     <div className='postGameFormBtns'>
                                         <button 
-                                            // onClick={()=>handleSubmitScore(userNameInput,finalTime,finalTimeSecs)}
                                             onClick={handleInputCheck}
                                             id='btnSubmitScore'
                                             className='btnPostGameModal'
@@ -158,49 +155,6 @@ const PostGame = (props) => {
                             null}
                         </div>
                 </div> 
-                
-                {/* <div id='postGameText'>
-                    Your time is: {finalTime ? finalTime : loadingIcon}
-                </div>
-                {finalTime ?
-                <div id='postGameForm' className='modal'>
-                    <div className='modalContent'>
-                        <label 
-                            htmlFor='userName'
-                            className='labelUserName'
-                        >
-                            Enter your name: 
-                        </label>
-                        <input
-                            onChange={handleInputChange}
-                            value={userNameInput}
-                            type='text'
-                            id='userNameInput'
-                            name='userNameInput'
-                            maxLength='20'
-                        />
-                        <button 
-                            // onClick={()=>handleSubmitScore(userNameInput,finalTime,finalTimeSecs)}
-                            onClick={handleInputCheck}
-                            id='btnSubmitScore'
-                            className='btnSubmitScore'
-                            type='button'
-                        >
-                            Submit
-                        </button>
-                        <button 
-                            onClick={handleCancel}
-                            id='btnCancelSubmit'
-                            className='btnCancelSubmit'
-                            type='button'
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                    {nameIsProfanity ? <div id='inputError'>Your name is not allowed, try again.</div>:null}
-                </div> 
-                :
-                null} */}
             </div>
             }
         </div>
