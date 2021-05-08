@@ -9,7 +9,7 @@ const StartPage = (props) => {
                 src={require(`../Images/Game/waldoGame.jpg`).default}
             />
             <div className='modal'>
-                <div class='modalContent'>
+                <div className='modalContent'>
                     <div id='modalTitle'>Where's Waldo?</div>
                     <div id='modalDescription'>
                         <div>Your goal is to find the characters above as quickly as possible!</div>
