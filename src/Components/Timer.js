@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from 'react';
 
 const Timer = (props) => {
-    const {gameEnd, getFinalTime} = props;
+    const {gameEnd} = props;
     const [startTime, setStartTime] = useState(Math.floor(Date.now() / 1000));
     const [displayTime, setDisplayTime] = useState('00:00:00');
     const [timer, setTimer] = useState();

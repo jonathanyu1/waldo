@@ -110,6 +110,7 @@ const PostGame = (props) => {
                 <img 
                     className='bgImage' 
                     src={require(`../Images/Game/waldoGame.jpg`).default}
+                    alt='waldo game bg'
                 />
                 <div id='postGameForm' className='modal'>
                         <div id='modalContent' className='modalContent'>

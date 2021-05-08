@@ -6,8 +6,7 @@ import characterFactory from './Factories/characterFactory';
 import GameController from './Components/GameController';
 import PostGame from './Components/PostGame';
 import ChoicePopup from './Components/ChoicePopup';
-import firebase, {firestore} from './Firebase/firebase.js';
-import has from 'lodash'
+import firebase from './Firebase/firebase.js';
 
 const App = () => {
     const [gameStart, setGameStart] = useState(false);
@@ -189,16 +188,7 @@ const App = () => {
             gameChars={gameChars}
             gameStart={gameStart}
             gameEnd={gameEnd}
-            getFinalTime={getFinalTime}
         />
-        {/* {gameStart &&
-            <Header 
-                gameChars={gameChars}
-                gameStart={gameStart}
-                gameEnd={gameEnd}
-                getFinalTime={getFinalTime}
-            />
-        } */}
         {gameStart && !gameEnd && boolChoiceMade!==null && 
             <ChoicePopup 
                 boolChoiceMade={boolChoiceMade} 

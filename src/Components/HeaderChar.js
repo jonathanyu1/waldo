@@ -12,7 +12,7 @@ const HeaderChar = (props) => {
             style={(props.isFound ? {opacity: 0.5}:null)}
         >
             <div className='headerCharImg'>
-                {props.name && <img src={require(`../Images/Header/${props.name}Header.png`).default}/>}
+                {props.name && <img src={require(`../Images/Header/${props.name}Header.png`).default} alt={`${props.name} header`}/>}
             </div>
             <div className='headerCharName'>
                 {props.name}

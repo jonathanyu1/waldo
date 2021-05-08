@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Dropdown from './Dropdown';
-import firebase, {firestore} from '../Firebase/firebase.js';
+import firebase from '../Firebase/firebase.js';
 
 const GameController = (props) => {
     const {gameChars, updateGameCharsFound, updateChoiceMade} = props;
@@ -79,6 +79,7 @@ const GameController = (props) => {
                 className='gameImage' 
                 src={require(`../Images/Game/waldoGame.jpg`).default}
                 onClick={handleClick}
+                alt='waldo game bg'
             />
             {dropdownVisible && 
             <Dropdown 

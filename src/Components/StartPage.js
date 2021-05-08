@@ -7,6 +7,7 @@ const StartPage = (props) => {
             <img 
                 className='bgImage' 
                 src={require(`../Images/Game/waldoGame.jpg`).default}
+                alt='waldo game bg'
             />
             <div className='modal'>
                 <div className='modalContent'>

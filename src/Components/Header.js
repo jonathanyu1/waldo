@@ -3,7 +3,7 @@ import HeaderChar from './HeaderChar';
 import Timer from './Timer';
 
 const Header = (props) => {
-    const {gameChars, gameStart, gameEnd, getFinalTime} = props;
+    const {gameChars, gameStart, gameEnd} = props;
 
     return (
         <div id='headerContainer'>
@@ -18,7 +18,7 @@ const Header = (props) => {
                     )
                 })}
             </div>
-            {gameStart ? <Timer gameEnd={gameEnd} getFinalTime={getFinalTime}/> : null}
+            {gameStart ? <Timer gameEnd={gameEnd}/> : null}
         </div>
     )
 

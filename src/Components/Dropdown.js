@@ -20,6 +20,7 @@ const Dropdown = (props) => {
                                 src={require(`../Images/Header/${gameChar.name}Header.png`).default}
                                 id={`dropdown${gameChar.name.charAt(0).toUpperCase()+gameChar.name.slice(1)}Img`}
                                 className='dropdownCharImg'
+                                alt={`${gameChar.name} header`}
                             />
                             {gameChar.name}
                         </div>
