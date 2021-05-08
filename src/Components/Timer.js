@@ -42,9 +42,14 @@ const Timer = (props) => {
     },[startTime]);
 
     return (
-        <div id='timerContainer'>
-            {displayTime}
-        </div>
+        <React.Fragment>
+        {displayTime ? 
+            <div id='timerContainer'>
+                {displayTime}
+            </div>
+        : null
+        }
+        </React.Fragment>
     )
 }
 

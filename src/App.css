@@ -3,6 +3,7 @@
 }
 
 :root{
+    --headerColor: #506da7;
     --mainBgColor: #121c35;
     /* --dropdownCharBgColor: rgba(53, 79, 145, 0.7); */
     --dropdownCharBgColor:rgba(18, 28, 53, 1);
@@ -13,6 +14,7 @@ html, body, #root, #appContainer{
     width: 100%;
     margin: 0;
     font-family: 'Roboto', sans-serif;
+    /* background-color: var(--mainBgColor); */
 }
 
 
@@ -24,7 +26,7 @@ html, body, #root, #appContainer{
     align-items: center;
     position: fixed;
     height: 10vh;
-    background-color: var(--mainBgColor);
+    background-color: var( --headerColor);
     width: 100%;
     z-index: 5;
 }
@@ -70,14 +72,14 @@ html, body, #root, #appContainer{
     align-items: center;
 }
 
-.startPageImage{
+.bgImage{
     max-width: 100%;
     height: auto;
     z-index: -1;
     padding-top: 10vh;
 }
 
-.startPageModal{
+.modal{
     display: block;
     position: fixed;
     z-index: 1;
@@ -204,13 +206,58 @@ html, body, #root, #appContainer{
     display: flex;
     flex-direction: column;
     position: fixed;
-    top: 15vh;
     left: 0;
     right: 0;
     align-items: center;
 }
 
-#postGameTime{
+#postGameForm{
+    font-size: 25px;
+}
+
+#modalContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+}
+
+#postGameText{
+    font-size: 35px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+
+#userNameInput{
+    width: 50%;
+    font-size: 20px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 7px 0;
+}
+
+#inputError{
+    margin-bottom: 15px;
+}
+
+.btnPostGameModal{
+    font-size: 20px;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#btnSubmitScore{
+    margin-right: 20px;
+    background-color:rgb(26, 115, 232);
+    color: white;
+}
+
+#btnCancelSubmit{
 
 }
 
@@ -228,6 +275,8 @@ html, body, #root, #appContainer{
 #leaderboardTitle{
     font-size: 25px;
     font-weight: 700;
+    text-decoration: underline;
+    padding-top: 15vh;
     padding-bottom: 3vh;
 }
 

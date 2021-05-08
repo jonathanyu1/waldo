@@ -5,10 +5,10 @@ const StartPage = (props) => {
     return (
         <div id='startPageContainer'>
             <img 
-                className='startPageImage' 
+                className='bgImage' 
                 src={require(`../Images/Game/waldoGame.jpg`).default}
             />
-            <div className='startPageModal'>
+            <div className='modal'>
                 <div class='modalContent'>
                     <div id='modalTitle'>Where's Waldo?</div>
                     <div id='modalDescription'>

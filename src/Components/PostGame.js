@@ -107,49 +107,99 @@ const PostGame = (props) => {
                 </React.Fragment>
             :
             <div id='postGameFormContainer'>
-                <div id='postGameText'>
+                <img 
+                    className='bgImage' 
+                    src={require(`../Images/Game/waldoGame.jpg`).default}
+                />
+                <div id='postGameForm' className='modal'>
+                        <div id='modalContent' className='modalContent'>
+                            <div id='postGameText'>
+                                Your time is: {finalTime ? finalTime : loadingIcon}
+                            </div>
+                            {finalTime ?
+                                <React.Fragment>
+                                    {nameIsProfanity ? <div id='inputError'>Your name is not allowed, try again.</div>:null}
+                                    <label 
+                                        htmlFor='userName'
+                                        className='labelUserName'
+                                    >
+                                        Enter your name: 
+                                    </label>
+                                    <input
+                                        onChange={handleInputChange}
+                                        value={userNameInput}
+                                        type='text'
+                                        id='userNameInput'
+                                        name='userNameInput'
+                                        maxLength='20'
+                                    />
+                                    <div className='postGameFormBtns'>
+                                        <button 
+                                            // onClick={()=>handleSubmitScore(userNameInput,finalTime,finalTimeSecs)}
+                                            onClick={handleInputCheck}
+                                            id='btnSubmitScore'
+                                            className='btnPostGameModal'
+                                            type='button'
+                                        >
+                                            Submit
+                                        </button>
+                                        <button 
+                                            onClick={handleCancel}
+                                            id='btnCancelSubmit'
+                                            className='btnPostGameModal'
+                                            type='button'
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </React.Fragment>
+                            :
+                            null}
+                        </div>
+                </div> 
+                
+                {/* <div id='postGameText'>
                     Your time is: {finalTime ? finalTime : loadingIcon}
                 </div>
-                {/* <div id='postGameTime'>
-                    {finalTime ? finalTime : loadingIcon}
-                </div> */}
                 {finalTime ?
-                <div id='postGameForm'>
-                    <label 
-                        htmlFor='userName'
-                        className='labelUserName'
-                    >
-                        Enter your name: 
-                    </label>
-                    <input
-                        onChange={handleInputChange}
-                        value={userNameInput}
-                        type='text'
-                        id='userNameInput'
-                        name='userNameInput'
-                        maxLength='20'
-                    />
-                    <button 
-                        // onClick={()=>handleSubmitScore(userNameInput,finalTime,finalTimeSecs)}
-                        onClick={handleInputCheck}
-                        id='btnSubmitScore'
-                        className='btnSubmitScore'
-                        type='button'
-                    >
-                        Submit
-                    </button>
-                    <button 
-                        onClick={handleCancel}
-                        id='btnCancelSubmit'
-                        className='btnCancelSubmit'
-                        type='button'
-                    >
-                        Cancel
-                    </button>
+                <div id='postGameForm' className='modal'>
+                    <div className='modalContent'>
+                        <label 
+                            htmlFor='userName'
+                            className='labelUserName'
+                        >
+                            Enter your name: 
+                        </label>
+                        <input
+                            onChange={handleInputChange}
+                            value={userNameInput}
+                            type='text'
+                            id='userNameInput'
+                            name='userNameInput'
+                            maxLength='20'
+                        />
+                        <button 
+                            // onClick={()=>handleSubmitScore(userNameInput,finalTime,finalTimeSecs)}
+                            onClick={handleInputCheck}
+                            id='btnSubmitScore'
+                            className='btnSubmitScore'
+                            type='button'
+                        >
+                            Submit
+                        </button>
+                        <button 
+                            onClick={handleCancel}
+                            id='btnCancelSubmit'
+                            className='btnCancelSubmit'
+                            type='button'
+                        >
+                            Cancel
+                        </button>
+                    </div>
                     {nameIsProfanity ? <div id='inputError'>Your name is not allowed, try again.</div>:null}
                 </div> 
                 :
-                null}
+                null} */}
             </div>
             }
         </div>
